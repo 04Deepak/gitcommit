@@ -1,0 +1,28 @@
+name: Daily Auto Commits
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure git
+        run: |
+          git config user.name "Deepak"
+          git config user.email "deepakbharate54321@gmail.com"
+
+      - name: Run auto-commit script
+        run: |
+          chmod +x commit.sh
+          bash commit.sh
+
+      - name: Push commits
+        run: git push
